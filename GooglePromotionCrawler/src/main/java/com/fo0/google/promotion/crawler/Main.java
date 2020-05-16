@@ -22,6 +22,9 @@ public class Main {
 	@Autowired
 	private MailService mail;
 
+	@Value("${crawler.username}")
+	private String receiver;
+
 	public static void main(String[] args) {
 		SpringApplication.run(Main.class, args);
 	}
@@ -34,7 +37,7 @@ public class Main {
 	 * @throws UnsupportedEncodingException
 	 */
 	@Scheduled(fixedRate = (1000 * 60 * 60) * 24)
-	private void startCrawler(@Value("${crawler.username}") String receiver) throws Exception, UnsupportedEncodingException {
+	private void startCrawler() throws Exception, UnsupportedEncodingException {
 
 		if (crawler.isPromotionAvailable()) {
 			log.info("Promotions available - sending mail to: {}", receiver);
